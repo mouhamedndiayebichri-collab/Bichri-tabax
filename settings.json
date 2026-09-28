@@ -1,0 +1,69 @@
+{
+  "brand": {
+    "name": "BICHRi TABAX",
+    "slogan": "Construire aujourd’hui, bâtir pour demain.",
+    "description": "Entreprise de construction et de maçonnerie. Nous réalisons des projets solides, soignés et adaptés aux besoins de nos clients."
+  },
+  "company": {
+    "name": "BICHRi TABAX",
+    "about": "BICHRi TABAX accompagne ses clients dans leurs projets de construction, maçonnerie, rénovation, piscines et aménagements. Notre objectif est de proposer un travail sérieux, propre et durable.",
+    "location": "Mbour, Sénégal",
+    "years": ""
+  },
+  "contact": {
+    "phone": "77 504 79 67",
+    "whatsapp": "221775047967",
+    "email": "",
+    "address": "Mbour, Sénégal",
+    "hours": "Lundi – Samedi : 08h00 – 18h00"
+  },
+  "hero": {
+    "title": "Votre projet entre de bonnes mains.",
+    "text": "De la conception à la réalisation, BICHRi TABAX met son savoir-faire au service de vos projets.",
+    "cta": "Nous contacter"
+  },
+  "services": [
+    {
+      "title": "Construction",
+      "text": "Construction de bâtiments et réalisation des différentes étapes du chantier."
+    },
+    {
+      "title": "Maçonnerie",
+      "text": "Travaux de maçonnerie, élévation, fondations, dalles et ouvrages en béton."
+    },
+    {
+      "title": "Rénovation",
+      "text": "Rénovation et amélioration de bâtiments pour leur donner une nouvelle vie."
+    },
+    {
+      "title": "Piscines & aménagements",
+      "text": "Réalisation de piscines et travaux d’aménagement selon votre projet."
+    }
+  ],
+  "social": {
+    "facebook": "",
+    "instagram": "",
+    "tiktok": "",
+    "youtube": ""
+  },
+  "seo": {
+    "title": "BICHRi TABAX — Construction & Maçonnerie",
+    "description": "BICHRi TABAX, entreprise de construction et de maçonnerie à Mbour, Sénégal.",
+    "keywords": "construction, maçonnerie, rénovation, piscine, Mbour, Sénégal"
+  },
+  "appearance": {
+    "primary": "#10243e",
+    "accent": "#c89b3c",
+    "light": "#f7f8fa"
+  },
+  "language": "fr",
+  "features": {
+    "showServices": true,
+    "showRealizations": true,
+    "showAbout": true,
+    "showContact": true,
+    "showPlans": true
+  },
+  "realizations": [],
+  "plans": []
+}

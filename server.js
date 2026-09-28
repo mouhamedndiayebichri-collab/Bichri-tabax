@@ -1,0 +1,15 @@
+const express=require('express');const session=require('express-session');const multer=require('multer');const fs=require('fs');const path=require('path');
+const app=express();const PORT=process.env.PORT||3000;const ROOT=__dirname;const DATA=path.join(ROOT,'data','settings.json');const UP=path.join(ROOT,'uploads');
+fs.mkdirSync(UP,{recursive:true});
+app.use(express.json({limit:'2mb'}));app.use(express.urlencoded({extended:true}));app.use(session({secret:process.env.SESSION_SECRET||'change-this-secret-before-production',resave:false,saveUninitialized:false,cookie:{httpOnly:true,sameSite:'lax',secure:false,maxAge:8*60*60*1000}}));
+app.use('/uploads',express.static(UP));app.use(express.static(path.join(ROOT,'public')));
+function read(){return JSON.parse(fs.readFileSync(DATA,'utf8'))}function write(v){fs.writeFileSync(DATA,JSON.stringify(v,null,2))}function auth(req,res,next){if(req.session.admin)return next();res.status(401).json({error:'Non autorisé'});}
+app.get('/api/settings',(req,res)=>res.json(read()));
+app.post('/api/login',(req,res)=>{const p=String(req.body.password||'');const expected=process.env.ADMIN_PASSWORD||'Bichri';if(p===expected){req.session.admin=true;return res.json({ok:true})}res.status(401).json({error:'Code incorrect'});});
+app.post('/api/logout',(req,res)=>req.session.destroy(()=>res.json({ok:true})));
+app.put('/api/settings',(req,res)=>{const current=read();const incoming=req.body;const merged={...current,...incoming,brand:{...current.brand,...(incoming.brand||{})},company:{...current.company,...(incoming.company||{})},contact:{...current.contact,...(incoming.contact||{})},hero:{...current.hero,...(incoming.hero||{})},social:{...current.social,...(incoming.social||{})},seo:{...current.seo,...(incoming.seo||{})},appearance:{...current.appearance,...(incoming.appearance||{})},features:{...current.features,...(incoming.features||{})}};write(merged);res.json(merged)});
+const storage=multer.diskStorage({destination:UP,filename:(req,file,cb)=>{const ext=path.extname(file.originalname).toLowerCase();cb(null,Date.now()+'-'+Math.random().toString(36).slice(2,8)+ext)}});const upload=multer({storage,limits:{fileSize:8*1024*1024},fileFilter:(req,file,cb)=>{if(/^image\/(jpeg|png|webp|jpg)$/.test(file.mimetype) || file.mimetype==='application/pdf')cb(null,true);else cb(new Error('Images JPG, PNG, WEBP ou PDF uniquement.'))}});
+app.post('/api/upload',upload.single('image'),(req,res)=>{if(!req.file)return res.status(400).json({error:'Aucune image'});res.json({url:'/uploads/'+req.file.filename,name:req.file.originalname})});
+app.post('/api/upload-plan',upload.single('plan'),(req,res)=>{if(!req.file)return res.status(400).json({error:'Aucun plan'});res.json({url:'/uploads/'+req.file.filename,name:req.file.originalname,type:req.file.mimetype==='application/pdf'?'pdf':'image'})});
+app.get('/admin',(req,res)=>res.sendFile(path.join(ROOT,'public','admin.html')));app.get('*',(req,res)=>res.sendFile(path.join(ROOT,'public','index.html')));
+app.use((err,req,res,next)=>res.status(400).json({error:err.message||'Erreur'}));app.listen(PORT,()=>console.log(`BICHRi TABAX: http://localhost:${PORT}`));

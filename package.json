@@ -1,0 +1,9 @@
+{
+  "name":"bichri-tabax-platform",
+  "version":"1.0.0",
+  "private":true,
+  "description":"Plateforme professionnelle BICHRi TABAX",
+  "main":"server.js",
+  "scripts":{"start":"node server.js"},
+  "dependencies":{"express":"^5.1.0","express-session":"^1.18.2","multer":"^2.0.2"}
+}
